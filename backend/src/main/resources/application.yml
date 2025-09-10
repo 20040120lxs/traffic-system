@@ -1,0 +1,72 @@
+# Spring Boot 配置
+spring:
+  # 数据源配置（使用占位变量）
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:difflight}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA 配置
+  jpa:
+    hibernate:
+      ddl-auto: update  # 自动更新数据库表结构
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # SQL 初始化
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      continue-on-error: true
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# 跨域配置
+cors:
+  allowed-origins: 
+    - http://localhost:5173
+    - http://127.0.0.1:5173
+  allowed-methods: 
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed-headers: 
+    - "*"
+  allow-credentials: true
+
+# 应用配置
+app:
+  # JWT 配置
+  jwt:
+    secret: ${JWT_SECRET:DiffLightJwtSecretKey2023ForTrafficSystemApplication}
+    expiration: 86400000  # 24小时，单位毫秒
+  
+  # 存储配置
+  storage:
+    datasets-dir: ${DATASETS_DIR:backend/storage/datasets}
+    results-dir: ${RESULTS_DIR:backend/storage/results}
+
+# 日志配置
+logging:
+  level:
+    com.difflight: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
