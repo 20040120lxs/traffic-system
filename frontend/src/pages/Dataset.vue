@@ -52,7 +52,7 @@
             <h3>上传说明</h3>
             <el-alert
               title="数据集上传功能已可用"
-              description="您可以上传各种格式的交通数据集文件，系统会自动保存并在"我的数据集"中显示。"
+              description="您可以上传各种格式的交通数据集文件，系统会自动保存并在我的数据集中显示。"
               type="success"
               show-icon
               :closable="false"
