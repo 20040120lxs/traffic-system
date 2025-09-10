@@ -1,0 +1,44 @@
+# Java/Maven
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# Node.js/NPM
+frontend/node_modules/
+frontend/dist/
+frontend/.nuxt/
+frontend/.vuepress/dist/
+
+# Storage directories (uploaded files should not be committed)
+backend/storage/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+tmp/
+temp/

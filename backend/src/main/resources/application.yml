@@ -1,0 +1,59 @@
+# DiffLight 后端应用配置
+spring:
+  # 数据源配置 - 使用环境变量占位符，便于部署时配置
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:difflight}?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  # JPA 配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+    # 延迟数据源初始化，确保表创建后再执行数据脚本
+    defer-datasource-initialization: true
+  
+  # SQL 初始化配置
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      enabled: true
+
+# 应用自定义配置
+app:
+  # JWT 配置
+  jwt:
+    secret: ${JWT_SECRET:difflight-secret-key-for-jwt-token-generation-2024}
+    expiration: 86400 # 24小时（秒）
+  
+  # 存储路径配置
+  storage:
+    # 数据集存储目录
+    datasets: ${STORAGE_DATASETS_PATH:backend/storage/datasets}
+    # 结果存储目录  
+    results: ${STORAGE_RESULTS_PATH:backend/storage/results}
+
+# 服务器配置
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /
+
+# 日志配置
+logging:
+  level:
+    com.difflight: INFO
+    org.springframework.security: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
